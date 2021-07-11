@@ -1,43 +1,64 @@
 // jshint esversion:10
 
 class Figure {
+  /* Main class for game figures. It takes a position X and Y in relation to the canvas. */
 
-    /* Main class for game figures. It takes a position X and Y in relation to the canvas. */
+  constructor(x, y, game) {
+    this.game = game;
+    this.x = x;
+    this.y = y;
+    this.speedX = 0;
+    this.speedY = 0;
+    this.gravity = 0.3;
+    this.accelerationX = 0;
 
-    constructor(x, y, game) {
-        this.game = game;
-        this.x = x;
-        this.y = y;
-        this.speedX = 0;
-        this.speedY = 0;
-        this.gravity = 0;
-        this.acceleration = 0;
-        this.resistence = 0.01;
-        this.lives = 1;
-        this.movemet = {};
+    this.lives = 1;
+    this.jumping = false;
+    this.moving = false;
+  }
+
+  movemetX() {
+    this.speedX += this.accelerationX;
+    this.x += this.speedX;
+
+    const resistance = 0.5;
+
+    if (this.speedX > 0) {
+      this.speedX -= resistance;
+    } else if (this.speedX < 0) {
+      this.speedX += resistance;
     }
-    
-    movemetX() {
-        
-        this.speedX += this.acceleration;
+  }
 
-        if (this.speedX > 0) {
-            this.speedX -= this.resistence;
-        } else if (this.speedX < 0) {
-            this.speedX += this.resistence;
-        }
-
-        this.x += this.speedX;
+  jump() {
+    if (!this.jumping) {
+      this.speedY = -10;
+      this.jumping = true;
     }
+  }
 
-    changeAcceleration(keyPressed, figureAcceleration) {
-        switch (keyPressed) {
-            case 'd':
-                this.acceleration += figureAcceleration;
-                break;
-            case 'a':
-                this.acceleration -= figureAcceleration;
-                break;
-        }    
+  move(direction) {
+    switch (direction) {
+      case 'ArrowLeft':
+      case 'a':
+        this.accelerationX -= 1;
+        break;
+      case 'ArrowRight':
+      case 'd':
+        this.accelerationX += 1;
+        break;
     }
+  }
+
+  verticalMovement() {
+    this.y += this.speedY;
+
+    if (this.y < this.game.gameDisplay.height / 1.5) {
+      this.speedY += this.gravity;
+      this.jumping = true;
+    } else {
+      this.speedY = 0;
+      this.jumping = false;
+    }
+  }
 }

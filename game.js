@@ -15,6 +15,7 @@ class Game {
       gameOver: false,
       pause: false
     };
+    this.background = new Background(this);
     this.hero = new Hero(
       this.display.width / 6,
       this.display.height / 1.5,
@@ -43,6 +44,7 @@ class Game {
   }
 
   paint() {
+    this.background.paint();
     this.hero.paint();
     this.commonEnemies[0].paint();
   }

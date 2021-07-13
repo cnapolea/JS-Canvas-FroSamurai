@@ -5,9 +5,10 @@ class Game {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
-    this.gameDisplay = {
+    this.display = {
       width: this.canvas.width,
-      height: this.canvas.height
+      height: this.canvas.height,
+      startingPositionY: this.canvas.height / 1.5
     };
     this.status = {
       running: true,
@@ -15,11 +16,11 @@ class Game {
       pause: false
     };
     this.hero = new Hero(
-      this.gameDisplay.width / 6,
-      this.gameDisplay.height / 1.5,
+      this.display.width / 6,
+      this.display.height / 1.5,
       this
     );
-    // this.enemy = new enemy.CommonEnemy();
+    this.commonEnemies = [];
     this.enableControls();
   }
 
@@ -29,37 +30,38 @@ class Game {
 
   loop() {
     window.requestAnimationFrame(() => {
-      this.ctx.clearRect(0, 0, this.gameDisplay.width, this.gameDisplay.height);
+      this.ctx.clearRect(0, 0, this.display.width, this.display.height);
+
+      if (this.commonEnemies.length < 1) {
+        this.makeEnemy();
+      }
 
       this.paint();
-      this.hero.logic();
+      this.logic();
       this.run();
     });
   }
 
   paint() {
     this.hero.paint();
+    this.commonEnemies[0].paint();
   }
 
   enableControls() {
     window.addEventListener('keydown', (e) => {
-      if (e.key === ' ' || e.key === 'ArrowUp') {
-        this.hero.jump();
-      }
-
       switch (e.key) {
         case 'ArrowRight':
         case 'd':
-          this.hero.move(e.key);
+          this.hero.move(e.key, e.type);
           break;
 
         case 'a':
         case 'ArrowLeft':
-          this.hero.move(e.key);
+          this.hero.move(e.key, e.type);
           break;
-        case 'a':
-        case 'ArrowLeft':
-          this.hero.move(e.key);
+        case ' ':
+        case 'ArrowUp':
+          this.hero.jump();
           break;
         default:
           break;
@@ -72,12 +74,12 @@ class Game {
         case 'a':
         case 'ArrowRight':
         case 'ArrowLeft':
-          this.hero.accelerationX = 0;
+          this.hero.move(e.key, e.type);
           break;
 
         case 'ArrowUp':
         case ' ':
-          this.hero.accelerationY = 0;
+          this.hero.move(e.key, e.type);
           break;
 
         default:
@@ -86,5 +88,14 @@ class Game {
     });
   }
 
-  logic() {}
+  makeEnemy() {
+    this.commonEnemies.push(
+      new Skeleton(this.display.width, this.display.startingPositionY, this)
+    );
+  }
+
+  logic() {
+    this.hero.logic();
+    this.commonEnemies[0].logic();
+  }
 }

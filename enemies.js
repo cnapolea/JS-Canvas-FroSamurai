@@ -3,8 +3,8 @@
 class Skeleton extends Figure {
   /* Enherits from Figure class */
 
-  constructor(x, y, game) {
-    super(x, y, game);
+  constructor(x, game) {
+    super(x, game);
   }
 
   horizontalMovement() {
@@ -23,7 +23,7 @@ class Skeleton extends Figure {
     ctx.save();
 
     ctx.fillStyle = 'yellow';
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillRect(this.x, this.initialY, this.width, this.height);
     ctx.restore();
   }
 

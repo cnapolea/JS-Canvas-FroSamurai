@@ -3,8 +3,8 @@
 class Hero extends Figure {
   /* Enherits from Figure class */
 
-  constructor(x, y, game) {
-    super(x, y, game);
+  constructor(x, game) {
+    super(x, game);
   }
 
   movemetX() {
@@ -58,7 +58,7 @@ class Hero extends Figure {
   verticalMovement() {
     this.y += this.speedY;
 
-    if (this.y < this.game.display.height / 1.5) {
+    if (this.y < this.initialY) {
       this.speedY += this.gravity;
       this.jumping = true;
     } else {

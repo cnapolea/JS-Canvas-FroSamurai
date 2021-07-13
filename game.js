@@ -16,11 +16,7 @@ class Game {
       pause: false
     };
     this.background = new Background(this);
-    this.hero = new Hero(
-      this.display.width / 6,
-      this.display.height / 1.5,
-      this
-    );
+    this.hero = new Hero(this.display.width / 6, this);
     this.commonEnemies = [];
     this.enableControls();
   }
@@ -91,9 +87,7 @@ class Game {
   }
 
   makeEnemy() {
-    this.commonEnemies.push(
-      new Skeleton(this.display.width, this.display.startingPositionY, this)
-    );
+    this.commonEnemies.push(new Skeleton(this.display.width + 100, this));
   }
 
   logic() {

@@ -14,7 +14,8 @@ class Background {
       width: 133,
       height: 36,
       tiles: this.game.display.width / 133,
-      src: `${this.imageUrl}initial_floor.png`
+      src: `${this.imageUrl}initial_floor.png`,
+      positionY: this.game.display.height - 36
     };
   }
 
@@ -39,7 +40,7 @@ class Background {
       this.game.ctx.drawImage(
         floorImg,
         tile * this.floor.width,
-        this.game.display.height - this.floor.height,
+        this.floor.positionY,
         this.floor.width,
         this.floor.height
       );

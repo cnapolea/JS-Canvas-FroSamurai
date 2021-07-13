@@ -14,7 +14,6 @@ class Skeleton extends Figure {
       this.speedX = -3;
     }
     this.x += this.speedX;
-    console.log(this.x);
   }
 
   paint() {

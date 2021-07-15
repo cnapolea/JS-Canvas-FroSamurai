@@ -57,7 +57,6 @@ class Hero extends Figure {
 
   verticalMovement() {
     this.y += this.speedY;
-    console.log(this.y);
 
     if (this.y < this.initialY) {
       this.speedY += this.gravity;

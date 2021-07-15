@@ -38,7 +38,10 @@ class Game {
 
   paint() {
     this.background.paint();
-    this.platforms[0].paint();
+
+    this.platforms.forEach((platform) => {
+      platform.paint();
+    });
     this.hero.paint();
     this.commonEnemies[0].paint();
   }
@@ -88,8 +91,8 @@ class Game {
     this.commonEnemies.push(new Skeleton(this.display.width + 100, this));
   }
 
-  makePlatform() {
-    this.platforms.push(new Platform(this));
+  makePlatform(width, height) {
+    this.platforms.push(new Platform(this, width, height));
   }
 
   logic() {
@@ -98,6 +101,10 @@ class Game {
     }
     if (this.platforms.length < 1) {
       this.makePlatform();
+    } else if (this.platforms.length < 2) {
+      let newPlatformHeight = this.platforms[0].y - 100;
+      let newPlatformWidth = this.platforms[0].x + 200;
+      this.makePlatform(newPlatformWidth, newPlatformHeight);
     }
 
     this.hero.logic();

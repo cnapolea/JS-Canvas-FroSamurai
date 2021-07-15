@@ -16,6 +16,7 @@ class Game {
       pause: false
     };
     this.background = new Background(this);
+    this.platforms = [];
     this.hero = new Hero(this.display.width / 6, this);
     this.commonEnemies = [];
     this.enableControls();
@@ -29,18 +30,15 @@ class Game {
     window.requestAnimationFrame(() => {
       this.ctx.clearRect(0, 0, this.display.width, this.display.height);
 
-      if (this.commonEnemies.length < 1) {
-        this.makeEnemy();
-      }
-
-      this.paint();
       this.logic();
+      this.paint();
       this.run();
     });
   }
 
   paint() {
     this.background.paint();
+    this.platforms[0].paint();
     this.hero.paint();
     this.commonEnemies[0].paint();
   }
@@ -90,7 +88,18 @@ class Game {
     this.commonEnemies.push(new Skeleton(this.display.width + 100, this));
   }
 
+  makePlatform() {
+    this.platforms.push(new Platform(this));
+  }
+
   logic() {
+    if (this.commonEnemies.length < 1) {
+      this.makeEnemy();
+    }
+    if (this.platforms.length < 1) {
+      this.makePlatform();
+    }
+
     this.hero.logic();
     this.commonEnemies[0].logic();
   }

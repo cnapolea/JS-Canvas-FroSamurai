@@ -22,7 +22,7 @@ class Skeleton extends Figure {
     ctx.save();
 
     ctx.fillStyle = 'yellow';
-    ctx.fillRect(this.x, this.initialY, this.width, this.height);
+    ctx.fillRect(this.x, this.initialY + 1, this.width, this.height);
     ctx.restore();
   }
 

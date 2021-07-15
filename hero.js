@@ -67,6 +67,10 @@ class Hero extends Figure {
     }
   }
 
+  checkInteration(obj) {
+    return this.x + this.width / 2 >= obj.x - obj.width / 2; //Need Jose explanation
+  }
+
   paint() {
     const game = this.game;
     const ctx = game.ctx;

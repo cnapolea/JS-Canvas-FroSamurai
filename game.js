@@ -107,6 +107,8 @@ class Game {
       this.makePlatform(newPlatformWidth, newPlatformHeight);
     }
 
+    if (this.hero.checkInteration(this.commonEnemies[0]))
+      console.log('intersect');
     this.hero.logic();
     this.commonEnemies[0].logic();
   }

@@ -7,7 +7,7 @@ class Figure {
     this.game = game;
     this.width = 49;
     this.height = 45;
-    this.initialY = this.game.background.floor.positionY - this.height;
+    this.initialY = this.game.background.floor.positionY - this.height / 2;
     this.x = x;
     this.y = this.initialY;
     this.speedX = 0;

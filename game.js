@@ -107,8 +107,13 @@ class Game {
       this.makePlatform(newPlatformWidth, newPlatformHeight);
     }
 
-    if (this.hero.checkInteration(this.commonEnemies[0]))
-      console.log('intersect');
+    this.platforms.forEach((platform) => {
+      if (this.hero.checkPlatformInteraction(platform)) {
+        console.log('collision');
+        this.hero.initialY = platform.y - platform.height;
+      }
+    });
+
     this.hero.logic();
     this.commonEnemies[0].logic();
   }

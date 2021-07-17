@@ -7,7 +7,7 @@ class Platform {
     this.height = 42;
     this.x = width || Math.floor(Math.random() * 300) + 100;
 
-    this.y = height || 230;
+    this.y = height || 300;
 
     this.platformImage = './images/background/level1/mainlevbuild.png';
   }
@@ -22,8 +22,8 @@ class Platform {
       177,
       this.width,
       this.height,
-      this.x,
-      this.y,
+      this.x - this.width / 2,
+      this.y - this.height / 2,
       this.width,
       this.height
     );

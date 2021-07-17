@@ -61,18 +61,29 @@ class Hero extends Figure {
     if (this.y < this.initialY) {
       this.speedY += this.gravity;
       this.jumping = true;
-    } else if (this.y >= this.initialY) {
+      console.log('gravity being applied');
+      console.log(this.speedY);
+    } else if (this.y > this.initialY) {
       this.speedY = 0;
       this.jumping = false;
     }
   }
 
-  checkInteration(obj) {
+  checkEnemyInteraction(enemy) {
     return (
-      this.x + this.width / 2 > obj.x - obj.width / 2 &&
-      this.x - this.width / 2 < obj.x + obj.width / 2 &&
-      this.y + this.height / 2 > obj.y - obj.height / 2 &&
-      this.y - this.height / 2 < obj.y + obj.height / 2
+      this.x + this.width / 2 > enemy.x - enemy.width / 2 &&
+      this.x - this.width / 2 < enemy.x + enemy.width / 2 &&
+      this.y + this.height / 2 > enemy.y - enemy.height / 2 &&
+      this.y - this.height / 2 < enemy.y + enemy.height / 2
+    );
+  }
+
+  checkPlatformInteraction(platform) {
+    return (
+      this.x + this.width / 2 > platform.x - platform.width / 2 &&
+      this.x - this.width / 2 < platform.x + platform.width / 2 &&
+      // this.y + this.height / 2 > platform.y - platform.height / 2 &&
+      this.y - this.height / 2 < platform.y + platform.height / 2
     );
   }
 

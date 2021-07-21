@@ -3,11 +3,15 @@
 class Platform {
   constructor(game, width, height) {
     this.game = game;
-    this.width = 77;
-    this.height = 42;
-    this.x = width || Math.floor(Math.random() * 300) + 100;
+    this.dimension = {
+      w: 77,
+      h: 42
+    };
 
-    this.y = height || 300;
+    this.position = {
+      x: width || Math.floor(Math.random() * 300) + 100,
+      y: height || 300
+    };
 
     this.platformImage = './images/background/level1/mainlevbuild.png';
   }
@@ -20,12 +24,12 @@ class Platform {
       platformImg,
       571,
       177,
-      this.width,
-      this.height,
-      this.x - this.width / 2,
-      this.y - this.height / 2,
-      this.width,
-      this.height
+      this.dimension.w,
+      this.dimension.h,
+      this.position.x - this.dimension.w / 2,
+      this.position.y - this.dimension.h / 2,
+      this.dimension.w,
+      this.dimension.h
     );
   }
 }

@@ -5,19 +5,38 @@ class Figure {
 
   constructor(x, game) {
     this.game = game;
-    this.width = 49;
-    this.height = 45;
-    this.floorY = this.game.background.floor.positionY - this.height / 2;
-    this.initialY = this.floorY;
-    this.x = x;
-    this.y = this.initialY;
-    this.speedX = 0;
-    this.speedY = 0;
-    this.gravity = 0.3;
-    this.accelerationX = 0;
-
+    this.floorY = this.game.floor.position.y;
     this.lives = 1;
-    this.jumping = false;
-    this.moving = false;
+
+    this.dimension = {
+      w: 49,
+      h: 45
+    };
+
+    this.position = {
+      x: x,
+      y: this.floorY
+    };
+
+    this.speed = {
+      x: 0,
+      y: 0
+    };
+
+    this.acceleration = {
+      x: 0,
+      y: 0,
+      g: 0
+    };
+
+    this.forces = {
+      gravity: 0.5,
+      resistance: 0.5
+    };
+
+    this.status = {
+      jumping: false,
+      moving: false
+    };
   }
 }

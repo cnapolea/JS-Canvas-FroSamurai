@@ -16,6 +16,7 @@ class Game {
       pause: false
     };
     this.background = new Background(this);
+    this.floor = new Floor(this);
     this.platforms = [];
     this.hero = new Hero(this.display.width / 6, this);
     this.commonEnemies = [];
@@ -38,12 +39,14 @@ class Game {
 
   paint() {
     this.background.paint();
-
+    this.floor.paint();
     this.platforms.forEach((platform) => {
       platform.paint();
     });
+    this.commonEnemies.forEach((enemy) => {
+      enemy.paint();
+    });
     this.hero.paint();
-    this.commonEnemies[0].paint();
   }
 
   enableControls() {
@@ -78,6 +81,7 @@ class Game {
 
         case 'ArrowUp':
         case ' ':
+          this.hero.status.jumping = false;
           this.hero.move(e.key, e.type);
           break;
 
@@ -102,17 +106,10 @@ class Game {
     if (this.platforms.length < 1) {
       this.makePlatform();
     } else if (this.platforms.length < 2) {
-      let newPlatformHeight = this.platforms[0].y - 100;
-      let newPlatformWidth = this.platforms[0].x + 200;
+      let newPlatformHeight = this.platforms[0].position.y - 100;
+      let newPlatformWidth = this.platforms[0].position.x + 200;
       this.makePlatform(newPlatformWidth, newPlatformHeight);
     }
-
-    this.platforms.forEach((platform) => {
-      if (this.hero.checkPlatformInteraction(platform)) {
-        console.log('collision');
-        this.hero.initialY = platform.y - platform.height;
-      }
-    });
 
     this.hero.logic();
     this.commonEnemies[0].logic();

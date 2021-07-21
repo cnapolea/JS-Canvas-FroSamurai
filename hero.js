@@ -125,12 +125,6 @@ class Hero extends Figure {
         : `${this.imgPath}${this.runningImg}_left.png`;
       this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 10);
     }
-    // ctx.fillRect(
-    //   this.position.x - this.dimension.w / 2,
-    //   this.position.y - this.dimension.h / 2,
-    //   this.dimension.w,
-    //   this.dimension.h
-    // );
   }
 
   logic() {

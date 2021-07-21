@@ -40,4 +40,38 @@ class Figure {
       moving: false
     };
   }
+
+  drawImage(direction, imageSource, sx1, sx2, imgDistance, sy, sw, sh) {
+    this.game.ctx.save();
+
+    if (direction) {
+      this.game.ctx.drawImage(
+        imageSource,
+        sx1 + imgDistance * Math.round(this.frame / 11),
+        sy,
+        sw,
+        sh,
+        this.position.x - this.dimension.w / 2,
+        this.position.y - this.dimension.h / 2,
+        this.dimension.w,
+        this.dimension.h
+      );
+    } else {
+      this.game.ctx.drawImage(
+        imageSource,
+        sx2 + imgDistance * Math.round(this.frame / 11),
+        sy,
+        sw,
+        sh,
+        this.position.x - this.dimension.w / 2,
+        this.position.y - this.dimension.h / 2,
+        this.dimension.w,
+        this.dimension.h
+      );
+    }
+
+    this.game.ctx.restore();
+    this.frame++;
+    this.frame %= 70;
+  }
 }

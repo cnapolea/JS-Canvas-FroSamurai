@@ -30,42 +30,10 @@ class Skeleton extends Figure {
   }
 
   paint() {
-    const game = this.game;
-    const ctx = game.ctx;
-
     const enemyRunningImg = new Image();
     enemyRunningImg.src = `${this.imgSrc}`;
 
-    ctx.save();
-    if (this.direction) {
-      ctx.drawImage(
-        enemyRunningImg,
-        85 + 65 * Math.round(this.frame / 11),
-        140,
-        36,
-        36,
-        this.position.x - this.dimension.w / 2,
-        this.position.y - this.dimension.h / 2,
-        this.dimension.w,
-        this.dimension.h
-      );
-    } else {
-      ctx.drawImage(
-        enemyRunningImg,
-        0 + 65 * Math.round(this.frame / 11),
-        140,
-        36,
-        36,
-        this.position.x - this.dimension.w / 2,
-        this.position.y - this.dimension.h / 2,
-        this.dimension.w,
-        this.dimension.h
-      );
-    }
-
-    ctx.restore();
-    this.frame++;
-    this.frame %= 70;
+    this.drawImage(this.direction, enemyRunningImg, 85, 0, 65, 140, 36, 36);
   }
 
   logic() {

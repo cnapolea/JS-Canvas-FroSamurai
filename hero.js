@@ -16,9 +16,8 @@ class Hero extends Figure {
   constructor(x, game) {
     super(x, game);
     this.imgPath = './images/main_character/Martial Hero 2/Sprites/';
-    this.idleRightImg = 'Idle_right.png';
-    this.idleLeftImg = 'Idle_left.png';
-    this.runningImg = 'Run.png';
+    this.idleImg = 'Idle';
+    this.runningImg = 'Run';
     this.jumpingImg = 'Jump.png';
     this.fallingImg = 'Fall.png';
     this.imgLeftDirection = 'skeleton_left.png';
@@ -117,12 +116,14 @@ class Hero extends Figure {
 
     if (!this.status.moving) {
       heroImg.src = this.direction
-        ? `${this.imgPath}${this.idleRightImg}`
-        : `${this.imgPath}${this.idleLeftImg}`;
+        ? `${this.imgPath}${this.idleImg}_right.png`
+        : `${this.imgPath}${this.idleImg}_left.png`;
       this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 30);
     } else if (this.status.moving) {
-      heroImg.src = `${this.imgPath}${this.idleRightImg}`;
-      this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 30);
+      heroImg.src = this.direction
+        ? `${this.imgPath}${this.runningImg}_right.png`
+        : `${this.imgPath}${this.runningImg}_left.png`;
+      this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 10);
     }
     // ctx.fillRect(
     //   this.position.x - this.dimension.w / 2,

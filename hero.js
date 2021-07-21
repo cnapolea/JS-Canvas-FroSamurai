@@ -61,14 +61,14 @@ class Hero extends Figure {
       y: this.position.y + this.speed.y
     };
 
+    this.speed.y += this.forces.gravity;
+
     this.game.platforms.forEach((platform) => {
       if (checkIntersection(this, platform)) {
         this.speed.y = 0;
         newPosition.y = this.position.y;
       }
     });
-
-    this.speed.y += this.forces.gravity;
 
     this.position.y = newPosition.y;
     this.hitsFloor();

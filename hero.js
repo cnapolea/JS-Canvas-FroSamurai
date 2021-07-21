@@ -16,8 +16,6 @@ class Hero extends Figure {
   constructor(x, game) {
     super(x, game);
     this.newPositionIntersectsWithPlatforms = false;
-    // this.heroBottom = this.position.y + this.dimension.h / 2;
-    // this.floorTop = this.position.y + this.dimension.h / 2;
   }
 
   movemetX() {
@@ -25,13 +23,11 @@ class Hero extends Figure {
 
     this.game.platforms.forEach((platform) => {
       if (checkIntersection(this, platform)) {
-        console.log('collision Platform');
       }
     });
 
     this.game.commonEnemies.forEach((enemy) => {
       if (checkIntersection(this, enemy)) {
-        console.log('collision Enemy');
       }
     });
 

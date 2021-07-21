@@ -7,6 +7,7 @@ class Figure {
     this.game = game;
     this.floorY = this.game.floor.position.y;
     this.lives = 1;
+    this.frame = 0;
 
     this.dimension = {
       w: 49,

@@ -33,7 +33,18 @@ class Skeleton extends Figure {
     const enemyRunningImg = new Image();
     enemyRunningImg.src = `${this.imgSrc}`;
 
-    this.drawImage(this.direction, enemyRunningImg, 85, 0, 65, 140, 36, 36);
+    this.drawImage(
+      this.direction,
+      enemyRunningImg,
+      85,
+      0,
+      65,
+      140,
+      36,
+      41,
+      70,
+      11
+    );
   }
 
   logic() {

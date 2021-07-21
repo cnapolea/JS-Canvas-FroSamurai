@@ -11,7 +11,7 @@ class Figure {
 
     this.dimension = {
       w: 49,
-      h: 45
+      h: 60
     };
 
     this.position = {
@@ -41,13 +41,24 @@ class Figure {
     };
   }
 
-  drawImage(direction, imageSource, sx1, sx2, imgDistance, sy, sw, sh) {
+  drawImage(
+    direction,
+    imageSource,
+    sx1,
+    sx2,
+    imgDistance,
+    sy,
+    sw,
+    sh,
+    frame,
+    refreshDominator
+  ) {
     this.game.ctx.save();
 
     if (direction) {
       this.game.ctx.drawImage(
         imageSource,
-        sx1 + imgDistance * Math.round(this.frame / 11),
+        sx1 + imgDistance * Math.round(this.frame / refreshDominator),
         sy,
         sw,
         sh,
@@ -59,7 +70,7 @@ class Figure {
     } else {
       this.game.ctx.drawImage(
         imageSource,
-        sx2 + imgDistance * Math.round(this.frame / 11),
+        sx2 + imgDistance * Math.round(this.frame / refreshDominator),
         sy,
         sw,
         sh,
@@ -72,6 +83,6 @@ class Figure {
 
     this.game.ctx.restore();
     this.frame++;
-    this.frame %= 70;
+    this.frame %= frame;
   }
 }

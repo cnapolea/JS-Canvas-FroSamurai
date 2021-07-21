@@ -15,7 +15,16 @@ class Hero extends Figure {
 
   constructor(x, game) {
     super(x, game);
-    this.newPositionIntersectsWithPlatforms = false;
+    this.imgPath = './images/main_character/Martial Hero 2/Sprites/';
+    this.idleRightImg = 'Idle_right.png';
+    this.idleLeftImg = 'Idle_left.png';
+    this.runningImg = 'Run.png';
+    this.jumpingImg = 'Jump.png';
+    this.fallingImg = 'Fall.png';
+    this.imgLeftDirection = 'skeleton_left.png';
+    this.imgRightDirection = 'skeleton_right.png';
+    this.imgSrc;
+    this.direction = 1;
   }
 
   movemetX() {
@@ -75,10 +84,14 @@ class Hero extends Figure {
       switch (direction) {
         case 'ArrowLeft':
         case 'a':
+          this.status.moving = true;
+          this.direction = 0;
           this.acceleration.x -= 1;
           break;
         case 'ArrowRight':
         case 'd':
+          this.status.moving = true;
+          this.direction = 1;
           this.acceleration.x += 1;
           break;
       }
@@ -88,6 +101,7 @@ class Hero extends Figure {
         case 'a':
         case 'ArrowRight':
         case 'ArrowLeft':
+          this.status.moving = false;
           this.acceleration.x = 0;
           break;
         case 'ArrowUp':
@@ -99,14 +113,23 @@ class Hero extends Figure {
   }
 
   paint() {
-    const game = this.game;
-    const ctx = game.ctx;
-    ctx.fillRect(
-      this.position.x - this.dimension.w / 2,
-      this.position.y - this.dimension.h / 2,
-      this.dimension.w,
-      this.dimension.h
-    );
+    const heroImg = new Image();
+
+    if (!this.status.moving) {
+      heroImg.src = this.direction
+        ? `${this.imgPath}${this.idleRightImg}`
+        : `${this.imgPath}${this.idleLeftImg}`;
+      this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 30);
+    } else if (this.status.moving) {
+      heroImg.src = `${this.imgPath}${this.idleRightImg}`;
+      this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 30);
+    }
+    // ctx.fillRect(
+    //   this.position.x - this.dimension.w / 2,
+    //   this.position.y - this.dimension.h / 2,
+    //   this.dimension.w,
+    //   this.dimension.h
+    // );
   }
 
   logic() {

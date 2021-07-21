@@ -63,7 +63,9 @@ class Game {
           break;
         case ' ':
         case 'ArrowUp':
-          this.hero.jump();
+          if (!this.hero.status.jumping) {
+            this.hero.jump();
+          }
           break;
         default:
           break;
@@ -81,7 +83,6 @@ class Game {
 
         case 'ArrowUp':
         case ' ':
-          this.hero.status.jumping = false;
           this.hero.move(e.key, e.type);
           break;
 

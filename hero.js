@@ -18,10 +18,8 @@ class Hero extends Figure {
     this.imgPath = './images/main_character/Martial Hero 2/Sprites/';
     this.idleImg = 'Idle';
     this.runningImg = 'Run';
-    this.jumpingImg = 'Jump.png';
-    this.fallingImg = 'Fall.png';
-    this.imgLeftDirection = 'skeleton_left.png';
-    this.imgRightDirection = 'skeleton_right.png';
+    this.jumpingImg = 'Jump';
+
     this.imgSrc;
     this.direction = 1;
   }
@@ -49,12 +47,16 @@ class Hero extends Figure {
   }
 
   jump() {
-    this.speed.y -= 15;
+    if (!this.status.jumping) {
+      this.speed.y -= 15;
+      this.status.jumping = true;
+    }
   }
 
   hitsFloor() {
     if (this.position.y > this.game.floor.position.y) {
       this.speed.y = 0;
+      this.status.jumping = false;
       this.position.y = this.game.floor.position.y;
     }
   }
@@ -70,6 +72,7 @@ class Hero extends Figure {
     this.game.platforms.forEach((platform) => {
       if (checkIntersection(this, platform)) {
         this.speed.y = 0;
+        this.status.jumping = false;
         newPosition.y = this.position.y;
       }
     });
@@ -114,16 +117,21 @@ class Hero extends Figure {
   paint() {
     const heroImg = new Image();
 
-    if (!this.status.moving) {
+    if (!this.status.moving && !this.status.jumping) {
       heroImg.src = this.direction
         ? `${this.imgPath}${this.idleImg}_right.png`
         : `${this.imgPath}${this.idleImg}_left.png`;
       this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 30);
-    } else if (this.status.moving) {
+    } else if (this.status.moving && !this.status.jumping) {
       heroImg.src = this.direction
         ? `${this.imgPath}${this.runningImg}_right.png`
         : `${this.imgPath}${this.runningImg}_left.png`;
       this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 10);
+    } else if (this.status.jumping) {
+      heroImg.src = this.direction
+        ? `${this.imgPath}${this.jumpingImg}_right.png`
+        : `${this.imgPath}${this.jumpingImg}_left.png`;
+      this.drawImage(this.direction, heroImg, 80, 80, 200, 72, 50, 60, 70, 60);
     }
   }
 

@@ -31,7 +31,17 @@ class Weapon {
 
   paint() {
     const ctx = this.game.ctx;
-    this.position.x = this.character.position.x + this.swordDisplacement;
+    if (this.character.direction) {
+      this.position.x =
+        this.character.position.x -
+        this.dimension.w / 2 +
+        this.swordDisplacement;
+    } else {
+      this.position.x =
+        this.character.position.x +
+        -this.dimension.w / 2 +
+        this.swordDisplacement;
+    }
 
     this.position.y = this.character.position.y;
 

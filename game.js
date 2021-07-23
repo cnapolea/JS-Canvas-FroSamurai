@@ -19,7 +19,6 @@ class Game {
     this.floor = new Floor(this);
     this.platforms = [];
     this.hero = new Hero(this.display.width / 6, this);
-    this.heroWeapon = new Weapon(this, this.hero, 40, 5);
     this.commonEnemies = [];
     this.enableControls();
   }
@@ -46,9 +45,10 @@ class Game {
     });
     this.commonEnemies.forEach((enemy) => {
       enemy.paint();
+      enemy.weapon.paint();
     });
     this.hero.paint();
-    this.heroWeapon.paint();
+    this.hero.weapon.paint();
   }
 
   enableControls() {
@@ -56,20 +56,20 @@ class Game {
       if (!this.hero.status.attacking) {
         if (this.hero.direction) {
           this.hero.status.attacking = true;
-          this.heroWeapon.swordDisplacement = this.hero.dimension.w / 2;
+          this.hero.weapon.swordDisplacement += 35;
           setTimeout(() => {
-            this.heroWeapon.swordDisplacement -= this.hero.dimension.w / 2;
-          }, 200);
+            this.hero.weapon.swordDisplacement -= 35;
+          }, 400);
           setTimeout(() => {
             this.hero.status.attacking = false;
           }, 1000);
         } else {
           this.hero.status.attacking = true;
-          this.heroWeapon.swordDisplacement -= 33;
+          this.hero.weapon.swordDisplacement -= 33;
 
           setTimeout(() => {
-            this.heroWeapon.swordDisplacement += 33;
-          }, 200);
+            this.hero.weapon.swordDisplacement += 33;
+          }, 400);
 
           setTimeout(() => {
             this.hero.status.attacking = false;
@@ -142,6 +142,6 @@ class Game {
 
     this.hero.logic();
     this.commonEnemies[0].logic();
-    this.heroWeapon.logic();
+    this.hero.weapon.logic();
   }
 }

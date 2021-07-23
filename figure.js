@@ -8,6 +8,7 @@ class Figure {
     this.floorY = this.game.floor.position.y;
     this.lives = 1;
     this.frame = 0;
+    this.weapon = new Weapon(game, this, 40, 5);
 
     this.dimension = {
       w: 49,

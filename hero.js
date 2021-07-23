@@ -59,7 +59,6 @@ class Hero extends Figure {
         if (!this.status.takingDamage) {
           this.status.takingDamage = true;
         }
-        console.log(this.lives);
       }
     });
 
@@ -127,36 +126,34 @@ class Hero extends Figure {
         ? `${this.imgPath}${this.idleImg}_right.png`
         : `${this.imgPath}${this.idleImg}_left.png`;
       this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 30);
-    } else if (this.status.moving && !this.status.jumping) {
+    } else if (
+      this.status.moving &&
+      !this.status.jumping &&
+      !this.status.takingDamage &&
+      !this.status.attacking
+    ) {
       heroImg.src = this.direction
         ? `${this.imgPath}${this.runningImg}_right.png`
         : `${this.imgPath}${this.runningImg}_left.png`;
       this.drawImage(this.direction, heroImg, 80, 80, 200, 70, 36, 60, 70, 10);
-    } else if (this.status.jumping) {
+    } else if (
+      this.status.jumping &&
+      !this.status.takingDamage &&
+      !this.status.attacking
+    ) {
       heroImg.src = this.direction
         ? `${this.imgPath}${this.jumpingImg}_right.png`
         : `${this.imgPath}${this.jumpingImg}_left.png`;
       this.drawImage(this.direction, heroImg, 80, 80, 200, 72, 50, 60, 70, 60);
-    } else if (this.status.attacking) {
+    } else if (!this.status.takingDamage && this.status.attacking) {
       heroImg.src = this.direction
         ? `${this.imgPath}${this.attackingImg}_left.png`
         : `${this.imgPath}${this.attackingImg}_right.png`;
-      this.game.ctx.save();
 
-      this.game.ctx.drawImage(
-        heroImg,
-        80 + 210 * Math.round(this.frame / 10),
-        65,
-        100,
-        70,
-        this.position.x - this.dimension.w / 2,
-        this.position.y - this.dimension.h / 2,
-        this.dimension.w,
-        this.dimension.h
-      );
-
-      this.frame++;
-      this.frame %= 70;
+      heroImg.src = this.direction
+        ? `${this.imgPath}${this.attackingImg}_left.png`
+        : `${this.imgPath}${this.attackingImg}_right.png`;
+      this.drawImage(this.direction, heroImg, 80, 80, 200, 72, 100, 60, 70, 20);
     } else if (this.status.takingDamage) {
       heroImg.src = this.direction
         ? `${this.imgPath}${this.damageImg}_left.png`
@@ -170,7 +167,7 @@ class Hero extends Figure {
       setTimeout(() => {
         this.lives -= 0.0005;
         this.status.takingDamage = false;
-      }, 2000);
+      }, 3500);
     } else {
       this.movement();
     }

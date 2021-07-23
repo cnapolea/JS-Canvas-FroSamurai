@@ -37,7 +37,9 @@ class Figure {
 
     this.status = {
       jumping: false,
-      moving: false
+      moving: false,
+      attacking: false,
+      takingDamage: false
     };
   }
 

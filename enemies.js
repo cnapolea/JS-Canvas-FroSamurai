@@ -26,28 +26,53 @@ class Skeleton extends Figure {
       this.imgSrc = `${this.imgPath}${this.imgLeftDirection}`;
       this.speed.x = -1.5;
     }
-    this.position.x += this.speed.x;
+
+    if (!this.status.takingDamage) {
+      this.position.x += this.speed.x;
+    }
   }
 
   paint() {
     const enemyRunningImg = new Image();
     enemyRunningImg.src = `${this.imgSrc}`;
 
-    this.drawImage(
-      this.direction,
-      enemyRunningImg,
-      85,
-      0,
-      65,
-      140,
-      36,
-      41,
-      70,
-      11
-    );
+    if (!this.status.takingDamage) {
+      this.drawImage(
+        this.direction,
+        enemyRunningImg,
+        85,
+        0,
+        65,
+        140,
+        36,
+        41,
+        70,
+        11
+      );
+    } else if (this.status.takingDamage) {
+      this.drawImage(
+        this.direction,
+        enemyRunningImg,
+        593,
+        9,
+        60,
+        270,
+        39,
+        41,
+        70,
+        11
+      );
+    }
   }
 
   logic() {
-    this.horizontalMovement();
+    if (this.status.takingDamage) {
+      setTimeout(() => {
+        this.lives -= 0.0005;
+        this.status.takingDamage = false;
+      }, 3000);
+    } else {
+      this.horizontalMovement();
+    }
   }
 }

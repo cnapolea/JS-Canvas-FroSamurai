@@ -19,6 +19,7 @@ class Game {
     this.floor = new Floor(this);
     this.platforms = [];
     this.hero = new Hero(this.display.width / 6, this);
+    this.heroWeapon = new Weapon(this, this.hero, 40, 5);
     this.commonEnemies = [];
     this.enableControls();
   }
@@ -47,9 +48,30 @@ class Game {
       enemy.paint();
     });
     this.hero.paint();
+    this.heroWeapon.paint();
   }
 
   enableControls() {
+    window.addEventListener('click', (e) => {
+      if (!this.hero.status.attacking) {
+        if (this.hero.direction) {
+          this.hero.status.attacking = true;
+          this.heroWeapon.swordDisplacement = this.hero.dimension.w / 2;
+          setTimeout(() => {
+            this.hero.status.attacking = false;
+            this.heroWeapon.swordDisplacement -= this.hero.dimension.w / 2;
+          }, 800);
+        } else {
+          this.hero.status.attacking = true;
+          this.heroWeapon.swordDisplacement -= 33;
+          setTimeout(() => {
+            this.hero.status.attacking = false;
+            this.heroWeapon.swordDisplacement += 33;
+          }, 800);
+        }
+      }
+    });
+
     window.addEventListener('keydown', (e) => {
       switch (e.key) {
         case 'ArrowRight':
@@ -114,5 +136,6 @@ class Game {
 
     this.hero.logic();
     this.commonEnemies[0].logic();
+    this.heroWeapon.logic();
   }
 }

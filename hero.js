@@ -19,7 +19,7 @@ class Hero extends Figure {
     this.idleImg = 'Idle';
     this.runningImg = 'Run';
     this.jumpingImg = 'Jump';
-
+    this.attackingImg = 'Attack2';
     this.imgSrc;
     this.direction = 1;
   }
@@ -71,9 +71,11 @@ class Hero extends Figure {
 
     this.game.platforms.forEach((platform) => {
       if (checkIntersection(this, platform)) {
-        this.speed.y = 0;
+        if (!this.status.jumping) {
+          this.speed.y = 0;
+          newPosition.y = this.position.y;
+        }
         this.status.jumping = false;
-        newPosition.y = this.position.y;
       }
     });
 
@@ -117,7 +119,7 @@ class Hero extends Figure {
   paint() {
     const heroImg = new Image();
 
-    if (!this.status.moving && !this.status.jumping) {
+    if (!this.status.moving && !this.status.jumping && !this.status.attacking) {
       heroImg.src = this.direction
         ? `${this.imgPath}${this.idleImg}_right.png`
         : `${this.imgPath}${this.idleImg}_left.png`;
@@ -132,6 +134,26 @@ class Hero extends Figure {
         ? `${this.imgPath}${this.jumpingImg}_right.png`
         : `${this.imgPath}${this.jumpingImg}_left.png`;
       this.drawImage(this.direction, heroImg, 80, 80, 200, 72, 50, 60, 70, 60);
+    } else if (this.status.attacking) {
+      heroImg.src = this.direction
+        ? `${this.imgPath}${this.attackingImg}_left.png`
+        : `${this.imgPath}${this.attackingImg}_right.png`;
+      this.game.ctx.save();
+
+      this.game.ctx.drawImage(
+        heroImg,
+        70 + 210 * Math.round(this.frame / 20),
+        65,
+        100,
+        70,
+        this.position.x - this.dimension.w / 2,
+        this.position.y - this.dimension.h / 2,
+        this.dimension.w,
+        this.dimension.h
+      );
+
+      this.frame++;
+      this.frame %= 70;
     }
   }
 

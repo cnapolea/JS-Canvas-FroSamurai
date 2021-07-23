@@ -60,7 +60,7 @@ class Skeleton extends Figure {
         39,
         41,
         70,
-        11
+        30
       );
     }
   }

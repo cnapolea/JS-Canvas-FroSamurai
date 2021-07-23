@@ -20,37 +20,9 @@ class Hero extends Figure {
     this.runningImg = 'Run';
     this.jumpingImg = 'Jump';
     this.attackingImg = 'Attack2';
+    this.damageImg = 'Damage';
     this.imgSrc;
     this.direction = 1;
-  }
-
-  movemetX() {
-    this.speed.x += this.acceleration.x;
-
-    this.game.platforms.forEach((platform) => {
-      if (checkIntersection(this, platform)) {
-      }
-    });
-
-    this.game.commonEnemies.forEach((enemy) => {
-      if (checkIntersection(this, enemy)) {
-      }
-    });
-
-    if (this.speed.x > 0) {
-      this.speed.x -= this.forces.resistance;
-    } else if (this.speed.x < 0) {
-      this.speed.x += this.forces.resistance;
-    }
-
-    this.position.x += this.speed.x;
-  }
-
-  jump() {
-    if (!this.status.jumping) {
-      this.speed.y -= 15;
-      this.status.jumping = true;
-    }
   }
 
   hitsFloor() {
@@ -61,25 +33,51 @@ class Hero extends Figure {
     }
   }
 
-  movementY() {
+  jump() {
+    if (!this.status.jumping) {
+      this.speed.y -= 15;
+      this.status.jumping = true;
+    }
+  }
+
+  movement() {
+    this.speed.x += this.acceleration.x;
+
     let newPosition = {
       x: this.position.x + this.speed.x,
       y: this.position.y + this.speed.y
     };
+
+    if (this.speed.x > 0) {
+      this.speed.x -= this.forces.resistance;
+    } else if (this.speed.x < 0) {
+      this.speed.x += this.forces.resistance;
+    }
+
+    this.game.commonEnemies.forEach((enemy) => {
+      if (checkIntersection(this, enemy)) {
+        if (!this.status.takingDamage) {
+          this.status.takingDamage = true;
+        }
+        console.log(this.lives);
+      }
+    });
 
     this.speed.y += this.forces.gravity;
 
     this.game.platforms.forEach((platform) => {
       if (checkIntersection(this, platform)) {
         if (!this.status.jumping) {
+          this.position.y = newPosition.y;
+          this.position.x = newPosition.x;
           this.speed.y = 0;
-          newPosition.y = this.position.y;
         }
         this.status.jumping = false;
       }
     });
 
     this.position.y = newPosition.y;
+    this.position.x = newPosition.x;
     this.hitsFloor();
   }
 
@@ -119,7 +117,12 @@ class Hero extends Figure {
   paint() {
     const heroImg = new Image();
 
-    if (!this.status.moving && !this.status.jumping && !this.status.attacking) {
+    if (
+      !this.status.moving &&
+      !this.status.jumping &&
+      !this.status.attacking &&
+      !this.status.takingDamage
+    ) {
       heroImg.src = this.direction
         ? `${this.imgPath}${this.idleImg}_right.png`
         : `${this.imgPath}${this.idleImg}_left.png`;
@@ -142,7 +145,7 @@ class Hero extends Figure {
 
       this.game.ctx.drawImage(
         heroImg,
-        70 + 210 * Math.round(this.frame / 20),
+        80 + 210 * Math.round(this.frame / 10),
         65,
         100,
         70,
@@ -154,11 +157,22 @@ class Hero extends Figure {
 
       this.frame++;
       this.frame %= 70;
+    } else if (this.status.takingDamage) {
+      heroImg.src = this.direction
+        ? `${this.imgPath}${this.damageImg}_left.png`
+        : `${this.imgPath}${this.damageImg}_right.png`;
+      this.drawImage(this.direction, heroImg, 80, 80, 200, 72, 50, 60, 70, 30);
     }
   }
 
   logic() {
-    this.movemetX();
-    this.movementY();
+    if (this.status.takingDamage) {
+      setTimeout(() => {
+        this.lives -= 0.0005;
+        this.status.takingDamage = false;
+      }, 2000);
+    } else {
+      this.movement();
+    }
   }
 }

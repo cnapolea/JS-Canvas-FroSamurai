@@ -58,16 +58,22 @@ class Game {
           this.hero.status.attacking = true;
           this.heroWeapon.swordDisplacement = this.hero.dimension.w / 2;
           setTimeout(() => {
-            this.hero.status.attacking = false;
             this.heroWeapon.swordDisplacement -= this.hero.dimension.w / 2;
-          }, 800);
+          }, 200);
+          setTimeout(() => {
+            this.hero.status.attacking = false;
+          }, 1000);
         } else {
           this.hero.status.attacking = true;
           this.heroWeapon.swordDisplacement -= 33;
+
+          setTimeout(() => {
+            this.heroWeapon.swordDisplacement += 33;
+          }, 200);
+
           setTimeout(() => {
             this.hero.status.attacking = false;
-            this.heroWeapon.swordDisplacement += 33;
-          }, 800);
+          }, 1000);
         }
       }
     });

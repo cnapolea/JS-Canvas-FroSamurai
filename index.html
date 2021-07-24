@@ -8,11 +8,27 @@
     <title>Fro Samurai</title>
   </head>
   <body>
-    <div id="display-start"></div>
-    <div id="display-playing">
-      <canvas width="680" height="420"></canvas>
+    <div id="display-start">
+      <h1>Fro Samurai</h1>
+      <img src="./images/icons/start.png" alt="" />
     </div>
-    <div id="display-game-over"></div>
+    <div id="display-playing">
+      <p>
+        The underworld is not for everyone, only for the belivers who for ages
+        have been fighting evel dark forces. Fro as to save his long time
+        partner, a mutant baby with special abilities who was captured by Skum,
+        the king of Bones. Is he up for the task?
+      </p>
+      <canvas width="680" height="420"></canvas>
+      <div class="controls">
+        <img src="./images/icons/keybordArrows.png" alt="" />
+        <h1>Right Click -> Attack</h1>
+      </div>
+    </div>
+    <div id="display-game-over">
+      <h1 class="header">GAME OVER</h1>
+      <!-- <img src="./images/icons/restart.png" alt="" /> -->
+    </div>
     <script src="./background.js"></script>
     <script src="./floor.js"></script>
     <script src="./platform.js"></script>

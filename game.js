@@ -2,8 +2,11 @@
 
 class Game {
   /* Main class to be use for running the game and its logic*/
-  constructor(canvas) {
+  constructor(canvas, startDisplay, playingDisplay, gameOverDisplay) {
     this.canvas = canvas;
+    this.startDisplay = startDisplay;
+    this.playingDisplay = playingDisplay;
+    this.gameOverDisplay = gameOverDisplay;
     this.ctx = this.canvas.getContext('2d');
     this.display = {
       width: this.canvas.width,
@@ -11,7 +14,7 @@ class Game {
       startingPositionY: this.canvas.height / 1.5
     };
     this.status = {
-      running: true,
+      running: false,
       gameOver: false,
       pause: false
     };
@@ -24,6 +27,7 @@ class Game {
   }
 
   run() {
+    this.status.running = true;
     if (this.status.running) this.loop();
   }
 
@@ -131,6 +135,9 @@ class Game {
   }
 
   logic() {
+    if (this.status.gameOver) {
+      this.status.running = false;
+    }
     if (this.commonEnemies.length < 1) {
       this.makeEnemy();
     }

@@ -164,7 +164,7 @@ class Hero extends Figure {
 
   logic() {
     if (this.status.takingDamage) {
-      this.health -= 0.0005;
+      this.health -= 0.0008;
       setTimeout(() => {
         this.status.takingDamage = false;
       }, 3500);
@@ -173,5 +173,10 @@ class Hero extends Figure {
     }
 
     this.removeLife();
+    if (!this.lives.length) {
+      this.game.status.gameOver = true;
+      this.game.playingDisplay.style.display = 'none';
+      this.game.gameOverDisplay.style.display = 'flex';
+    }
   }
 }

@@ -45,7 +45,8 @@ class Figure {
       jumping: false,
       moving: false,
       attacking: false,
-      takingDamage: false
+      takingDamage: false,
+      alive: true
     };
   }
 

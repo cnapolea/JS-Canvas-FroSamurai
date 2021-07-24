@@ -68,5 +68,7 @@ class Skeleton extends Figure {
     } else {
       this.horizontalMovement();
     }
+
+    this.removeLife();
   }
 }

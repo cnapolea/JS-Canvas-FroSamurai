@@ -46,10 +46,10 @@ class Game {
     this.commonEnemies.forEach((enemy) => {
       enemy.paint();
       enemy.weapon.paint();
-      enemy.lives.forEach((live) => live.paint());
+      enemy.lives.forEach((life) => life.paint());
     });
     this.hero.paint();
-    this.hero.lives.forEach((live) => live.paint());
+    this.hero.lives.forEach((life) => life.paint());
     this.hero.weapon.paint();
   }
 

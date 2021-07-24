@@ -11,7 +11,7 @@ class Live {
     const heart = new Image();
     heart.src = this.heartImg;
 
-    this.character.lives.forEach((live, i) => {
+    this.character.lives.forEach((life, i) => {
       this.game.ctx.drawImage(
         heart,
         23,

@@ -93,4 +93,14 @@ class Figure {
     this.frame++;
     this.frame %= frame;
   }
+
+  removeLife() {
+    if (this.health > 0.3 && this.health <= 0.3 * 2) {
+      this.lives = [new Live(this.game, this), new Live(this.game, this)];
+    } else if (this.health <= 0.3 && this.health > 0) {
+      this.lives = [new Live(this.game, this)];
+    } else if (this.health <= 0) {
+      this.lives.pop();
+    }
+  }
 }

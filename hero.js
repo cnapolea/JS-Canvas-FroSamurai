@@ -164,12 +164,14 @@ class Hero extends Figure {
 
   logic() {
     if (this.status.takingDamage) {
+      this.health -= 0.0005;
       setTimeout(() => {
-        this.health -= 0.0005;
         this.status.takingDamage = false;
       }, 3500);
     } else {
       this.movement();
     }
+
+    this.removeLife();
   }
 }

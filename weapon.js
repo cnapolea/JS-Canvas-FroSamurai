@@ -21,7 +21,11 @@ class Weapon {
     this.game.commonEnemies.forEach((enemy) => {
       if (this.character.status.attacking) {
         if (checkIntersection(this, enemy)) {
-          if (!enemy.status.takingDamage) {
+          enemy.difficulty += 0.03;
+          if (
+            !enemy.status.takingDamage &&
+            !this.game.hero.status.takingDamage
+          ) {
             enemy.status.takingDamage = true;
           }
         }

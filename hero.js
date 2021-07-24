@@ -167,7 +167,7 @@ class Hero extends Figure {
       this.health -= 0.0008;
       setTimeout(() => {
         this.status.takingDamage = false;
-      }, 3500);
+      }, 2500);
     } else {
       this.movement();
     }

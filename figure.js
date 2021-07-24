@@ -14,7 +14,6 @@ class Figure {
     ];
     this.frame = 0;
     this.weapon = new Weapon(game, this, 40, 5);
-
     this.dimension = {
       w: 49,
       h: 60

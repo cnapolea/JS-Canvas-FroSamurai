@@ -58,31 +58,33 @@ class Game {
   }
 
   enableControls() {
-    window.addEventListener('click', (e) => {
-      if (!this.hero.status.attacking) {
-        if (this.hero.direction) {
-          this.hero.status.attacking = true;
-          this.hero.weapon.swordDisplacement += 35;
-          setTimeout(() => {
-            this.hero.weapon.swordDisplacement -= 35;
-          }, 400);
-          setTimeout(() => {
-            this.hero.status.attacking = false;
-          }, 1000);
-        } else {
-          this.hero.status.attacking = true;
-          this.hero.weapon.swordDisplacement -= 33;
+    if (!this.hero.status.takingDamage) {
+      window.addEventListener('click', (e) => {
+        if (!this.hero.status.attacking) {
+          if (this.hero.direction) {
+            this.hero.status.attacking = true;
+            this.hero.weapon.swordDisplacement += 35;
+            setTimeout(() => {
+              this.hero.weapon.swordDisplacement -= 35;
+            }, 400);
+            setTimeout(() => {
+              this.hero.status.attacking = false;
+            }, 1000);
+          } else {
+            this.hero.status.attacking = true;
+            this.hero.weapon.swordDisplacement -= 33;
 
-          setTimeout(() => {
-            this.hero.weapon.swordDisplacement += 33;
-          }, 400);
+            setTimeout(() => {
+              this.hero.weapon.swordDisplacement += 33;
+            }, 400);
 
-          setTimeout(() => {
-            this.hero.status.attacking = false;
-          }, 1000);
+            setTimeout(() => {
+              this.hero.status.attacking = false;
+            }, 1000);
+          }
         }
-      }
-    });
+      });
+    }
 
     window.addEventListener('keydown', (e) => {
       switch (e.key) {

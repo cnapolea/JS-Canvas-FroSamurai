@@ -12,6 +12,7 @@ class Skeleton extends Figure {
     this.attackLeft = 'Attack_left.png';
     this.imgSrc;
     this.direction;
+    this.difficulty = 0;
   }
 
   horizontalMovement() {
@@ -19,14 +20,14 @@ class Skeleton extends Figure {
       this.direction = 0;
       this.imgSrc = `${this.imgPath}${this.imgRightDirection}`;
 
-      this.speed.x = 1.5;
+      this.speed.x = 1.5 + this.difficulty;
     } else if (
       this.position.x >=
       this.game.display.width - this.dimension.w / 2
     ) {
       this.direction = 1;
       this.imgSrc = `${this.imgPath}${this.imgLeftDirection}`;
-      this.speed.x = -1.5;
+      this.speed.x = -1.5 - this.difficulty;
     }
 
     if (!this.status.takingDamage) {
@@ -48,6 +49,13 @@ class Skeleton extends Figure {
   }
 
   logic() {
+    if (!this.lives.length) {
+      this.game.gameOverDisplay.children[0].innerHTML = `You Won! You have saved your partner and soon you both will keep fighting together the forces of the underworld!`;
+      this.game.status.gameOver = true;
+      this.game.playingDisplay.style.display = 'none';
+      this.game.gameOverDisplay.style.display = 'flex';
+    }
+
     const distanceHeroEnemyX = this.position.x - this.game.hero.position.x;
     const distanceHeroEnemyY = this.position.y - this.game.hero.position.y;
 

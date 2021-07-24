@@ -62,7 +62,7 @@ class Skeleton extends Figure {
 
     if (this.status.takingDamage) {
       setTimeout(() => {
-        this.lives -= 0.0005;
+        this.health -= 0.0005;
         this.status.takingDamage = false;
       }, 4000);
     } else {

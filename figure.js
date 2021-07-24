@@ -6,7 +6,12 @@ class Figure {
   constructor(x, game) {
     this.game = game;
     this.floorY = this.game.floor.position.y;
-    this.lives = 1;
+    this.health = 1;
+    this.lives = [
+      new Live(game, this),
+      new Live(game, this),
+      new Live(game, this)
+    ];
     this.frame = 0;
     this.weapon = new Weapon(game, this, 40, 5);
 
